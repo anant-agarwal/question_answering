@@ -5,9 +5,9 @@ Created on Mon Oct 31 20:40:50 2016
 
 @author: Deekshith
 """
-import shutil
 import re
 import xml.etree.ElementTree as ET
+import os
 
 def read_xml_file( path_to_file ):
     read_handle = open( path_to_file,"rb")
@@ -29,6 +29,7 @@ def read_xml_file( path_to_file ):
 
 def read_file_text(path_to_file):
     read_handle = open( path_to_file,"r")
+    read_handle.readline()
     text = read_handle.read()
     text = re.sub('<[^>]*>', '', text)
     return text

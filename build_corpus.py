@@ -7,11 +7,14 @@ Created on Mon Oct 31 21:22:42 2016
 """
 from nltk import tokenize
 import file_reader
+import lookup_gen
 
 def build_corpus(document_path):
     all_question_list = file_reader.list_all_files(document_path)
 
     corpus = dict()
+    lookup_dict = dict()
+
     for every_question in all_question_list:
         q_id = str(every_question);
         all_doc_files = file_reader.list_all_files(document_path+q_id+"/")
@@ -23,6 +26,8 @@ def build_corpus(document_path):
             document.append([])
 
             text = file_reader.read_file_text(document_path+q_id+"/"+doc_id_str)
+            #text = file_reader.read_xml_file(document_path+q_id+"/"+doc_id_str)
+
             text = text.replace('\r\n', '')
             try :
                 sentences = tokenize.sent_tokenize(text)
@@ -35,5 +40,8 @@ def build_corpus(document_path):
             while sentence_index < total_sentence :
                 document[doc_id].append(sentences[sentence_index])
                 sentence_index += 1
+        print "processed folder : ", every_question
         corpus[q_id] = document;
-    return corpus
+        lookup_dict[q_id] = lookup_gen.lookup_gen(corpus[q_id])
+        break;
+    return {"corpus": corpus, "lookup_dict": lookup_dict}

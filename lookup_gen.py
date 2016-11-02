@@ -11,6 +11,8 @@ from nltk.tokenize import word_tokenize
 
 def lookup_gen( corpus_per_q ):
     
+    max_rank_check = 2
+
     stanford_path = "./stanford-ner-2015-12-09/"
     stanford_model_path = stanford_path + '/classifiers/english.muc.7class.distsim.crf.ser.gz'
     stanford_jar_path = stanford_path + 'stanford-ner.jar'
@@ -30,6 +32,9 @@ def lookup_gen( corpus_per_q ):
     
     doc_id = 0
     for sentences in corpus_per_q :
+        if doc_id == 0:
+            doc_id += 1
+            continue
         sent_id = 0 
         for sentence in sentences:
             tokenized_sent = word_tokenize( sentence )
@@ -39,8 +44,11 @@ def lookup_gen( corpus_per_q ):
             for tup in classified_sent:
                 if( not ner_config[tup[1]] == "none"):
                     lookup_list[ ner_config[tup[1]] ] += [(doc_id, sent_id, tup[0])]
-            sent_id += 1            
+            sent_id += 1
+        print "NER tagging for: ", doc_id
         doc_id += 1
+        if doc_id == max_rank_check:
+            break;
     return( lookup_list )
 
 

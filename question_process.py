@@ -1,9 +1,9 @@
 """
 Get the Question id,Qtype and the Question Description
 """
+import matchingAnswer
 
-
-def QuestionProcessing(path_to_Q_file):
+def QuestionProcessing(path_to_Q_file, preprocessed_data):
     questid =""
     qtype = ""
     line_split =""
@@ -20,15 +20,20 @@ def QuestionProcessing(path_to_Q_file):
         # Question id
         if(line_split[0] == "<num>"):
             questid =int(line_split[2])
+
         # Question type
         #Questiondescription
-        if((line_split[0] != "<num>")and (line_split[0] !="<desc>") and(line_split[0] !="<top>") and (line_split[0]!="</top>")):
+        if(questid == 100 and
+           (line_split[0] != "<num>")and (line_split[0] !="<desc>") and
+           (line_split[0] !="<top>") and (line_split[0]!="</top>")):
             qtype=line_split[0]
             print(questid,qtype,line)
-            #FindMatchingAnswers(questid,qtype,line) //Call
-
-
-
+            print "finding answers for questid: ", questid
+            answers = matchingAnswer.FindMaxMatchingAnswer(questid, qtype,line,
+                                                           preprocessed_data["corpus"],
+                                                           preprocessed_data["lookup_dict"])
+            print questid
+            print answers
 
 #Sample call
-QuestionProcessing("C:/Users/pooja/Desktop/NLP_PROJ3/question.txt")
+#QuestionProcessing("C:/Users/pooja/Desktop/NLP_PROJ3/question.txt")
