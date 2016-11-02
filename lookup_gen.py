@@ -105,14 +105,14 @@ def lookup_gen_test():
 
 ##### to be relocated later###
 #### function to write to answer.txt file:###
-def write_to_answer_file( file_handle, answers):
+def write_to_answer_file( questid, file_handle, answers):
     content = ""
     count = 0;
     for ans in answers:
-        content += str(ans[0]) +" "+ str(ans[1]) + " " + ans[2] + "\n"
+        content += str(questid) +" "+ str(ans[1]) + " " + ans[2] + "\n"
         count += 1
 
     while( count < 5 ):
-        content += str(answers[0][0]) + "1 nil\n"
+        content += str(questid) + "1 nil\n"
         count += 1
     file_handle.write( content )

@@ -45,7 +45,7 @@ def QuestionProcessing(path, preprocessed_data):
                                                            preprocessed_data["lookup_dict"])
             #print questid
             #print answers
-            lookup_gen.write_to_answer_file(write_handle, answers)
+            lookup_gen.write_to_answer_file(questid, write_handle, answers)
     write_handle.close()
 
 #Sample call
