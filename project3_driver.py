@@ -3,8 +3,6 @@
 """
 Created on Mon Oct 31 20:44:31 2016
 
-@author: Deekshith
-
 """
 import build_corpus
 import question_process

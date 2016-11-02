@@ -1,17 +1,9 @@
-import os
-import codecs
-import random
-import time
-from collections import defaultdict
-import numpy as np
-
-from collections import defaultdict
 from nltk.tokenize import word_tokenize
 import heapq
 
 # lookup_list = { '89' : {'when': [], 'who': [], 'where': [(0, 0, 'India'), (1, 1, 'Microsoft')]}   }
 # 
-# corpus = [
+# corpus ={ '89': [
 #                        [
 #                             "Gandhi is father of India",
 #                             "Newton made laws of motion",
@@ -26,10 +18,7 @@ import heapq
 #                             "Surface desktops are the new thing to look at"
 #                        ]
 #                    ]
-
-h = []
-def insert_in_heap(common_word_count, qid, doc_id, answer):
-    heapq.heappush(h, (common_word_count, qid, doc_id, answer))
+#           }
 
 def get_token_set(sentence):
     word_List = word_tokenize(sentence)
@@ -42,7 +31,6 @@ def match_question_answer(question_tokens_set, answer_tokens_set):
 def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list):
     h = []
     question_tokens_set = get_token_set(qtext)
-    #tuple_list = lookup_list.get(qid).get(qtype)
     qid = str(qid)
     tuple_list =  lookup_list[str(qid)][qtype.lower()]
     top_five_answers = []
@@ -60,5 +48,7 @@ def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list):
         top_five_answers.append(answer_tuple[1:4])
     return top_five_answers
 
-# heap = find_max_matching_answer('89', "where", "where, is Gandhi?", corpus, lookup_list)
-# print(heap)
+''' Sample run for the function in this file''
+ heap = find_max_matching_answer('89', "where", "where, is Gandhi?", corpus, lookup_list)
+ print(heap)
+'''

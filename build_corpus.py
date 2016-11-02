@@ -3,7 +3,6 @@
 """
 Created on Mon Oct 31 21:22:42 2016
 
-@author: Deekshith
 """
 from nltk import tokenize
 import file_reader
@@ -27,8 +26,6 @@ def build_corpus(document_path):
             document.append([])
 
             text = file_reader.read_file_text(document_path+q_id+"/"+doc_id_str)
-            #text = file_reader.read_xml_file(document_path+q_id+"/"+doc_id_str)
-
             text = text.replace('\r\n', '')
             try :
                 sentences = tokenize.sent_tokenize(text)
@@ -45,7 +42,7 @@ def build_corpus(document_path):
         corpus[q_id] = document;
         lookup_dict[q_id] = lookup_gen.lookup_gen(corpus[q_id])
         #
-        # For testing.
+        # For testing:
         #
         #if question == 95:
         #    break;

@@ -3,7 +3,6 @@
 """
 Created on Mon Oct 31 20:40:50 2016
 
-@author: Deekshith
 """
 import re
 import xml.etree.ElementTree as ET
