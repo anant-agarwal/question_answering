@@ -11,7 +11,7 @@ from nltk.tokenize import word_tokenize
 
 def lookup_gen( corpus_per_q ):
 
-    max_rank_check = 3
+    max_rank_check = 2
 
     stanford_path = "./stanford-ner-2015-12-09/"
     stanford_model_path = stanford_path + '/classifiers/english.muc.7class.distsim.crf.ser.gz'
@@ -31,8 +31,11 @@ def lookup_gen( corpus_per_q ):
 
     lookup_list = { "who": [] , "where": [], "when":[] }
 
-    doc_id = 1
+    doc_id = 0
     for doc in corpus_per_q :
+        if doc_id == 0:
+            doc_id += 1
+            continue
         sent_id = 0 
         sent_len_list = []
         doc_content = []
@@ -65,12 +68,12 @@ def lookup_gen( corpus_per_q ):
             loop_var += 1
             start_index = last_index
 
-        print "NER tagging for: ", doc_id
+        #print "NER tagging for: ", doc_id
         doc_id += 1
 
-        if doc_id == max_rank_check+1:
+        if doc_id > max_rank_check:
             break;
-        print("done")
+        #print("done")
     return( lookup_list )
 
 
@@ -95,10 +98,10 @@ def lookup_gen_test():
     #corpus_per_q += [test_set]
     #st_tags = st.tag(test_set)
 
-    print( lookup_gen( corpus_per_q ) )
+    #print( lookup_gen( corpus_per_q ) )
 
 ##sample call below
-lookup_gen_test()
+#lookup_gen_test()
 
 
 ##### to be relocated later###

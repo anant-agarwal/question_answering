@@ -43,5 +43,5 @@ def build_corpus(document_path):
         print "processed folder : ", every_question
         corpus[q_id] = document;
         lookup_dict[q_id] = lookup_gen.lookup_gen(corpus[q_id])
-        break;
+        #break;
     return {"corpus": corpus, "lookup_dict": lookup_dict}

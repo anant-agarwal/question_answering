@@ -50,7 +50,10 @@ def FindMaxMatchingAnswer(QId, QType, QText, Corpus, lookUp_List):
         Doc_ID = tuple[0]
         Sent_ID = tuple[1]
         answer = tuple[2]
+        #try :
         sentence = Corpus[qid][Doc_ID][Sent_ID]
+        #except :
+            #print qid
         answer_Tokens_set = getTokenSet(sentence)
         common_word_count = match_Question_answer(question_Tokens_set, answer_Tokens_set)
         heapq.heappush(h, (common_word_count, QId, Doc_ID, answer))
