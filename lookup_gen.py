@@ -11,7 +11,7 @@ from nltk.tokenize import word_tokenize
 
 def lookup_gen( corpus_per_q ):
 
-    max_rank_check = 2
+    max_rank_check = 7
 
     stanford_path = "./stanford-ner-2015-12-09/"
     stanford_model_path = stanford_path + '/classifiers/english.muc.7class.distsim.crf.ser.gz'

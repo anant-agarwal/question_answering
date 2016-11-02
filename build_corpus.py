@@ -11,12 +11,13 @@ import lookup_gen
 
 def build_corpus(document_path):
     all_question_list = file_reader.list_all_files(document_path)
+    all_question_list.sort()
 
     corpus = dict()
     lookup_dict = dict()
 
-    for every_question in all_question_list:
-        q_id = str(every_question);
+    for question in all_question_list:
+        q_id = str(question);
         all_doc_files = file_reader.list_all_files(document_path+q_id+"/")
         all_doc_files.sort()
         document = []
@@ -40,8 +41,12 @@ def build_corpus(document_path):
             while sentence_index < total_sentence :
                 document[doc_id].append(sentences[sentence_index])
                 sentence_index += 1
-        print "processed folder : ", every_question
+        print "processed folder : ", question
         corpus[q_id] = document;
         lookup_dict[q_id] = lookup_gen.lookup_gen(corpus[q_id])
-        #break;
+        #
+        # For testing.
+        #
+        #if question == 95:
+        #    break;
     return {"corpus": corpus, "lookup_dict": lookup_dict}

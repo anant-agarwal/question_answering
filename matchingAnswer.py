@@ -40,6 +40,7 @@ def match_question_answer(question_tokens_set, answer_tokens_set):
     return (common_word_count)
 
 def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list):
+    h = []
     question_tokens_set = get_token_set(qtext)
     #tuple_list = lookup_list.get(qid).get(qtype)
     qid = str(qid)
