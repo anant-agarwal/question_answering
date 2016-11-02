@@ -39,7 +39,7 @@ def lookup_gen( corpus_per_q ):
         sent_id = 0 
         sent_len_list = []
         doc_content = []
-        #get cumulative lengths of sentences in a list.
+        #get cumulative lengths of sentences in a list and club all the sentences of doc together.
         for sentence in doc:
             tokenized_sent = word_tokenize( sentence )
             try:
@@ -52,14 +52,13 @@ def lookup_gen( corpus_per_q ):
         #NER the whole doc at once
         doc_arr = st.tag(doc_content)
 
-        loop_var = 0
-        start_index = 0
+        loop_var = 0 #iterator over sent len list
+        start_index = 0 #keeps track of sentence starting point
         for sentence in doc:
-            last_index = sent_len_list[loop_var]
-            classified_unicode = doc_arr[start_index:last_index]
-            #convert unicode to string
-#           for w in classified_unicode:
+            last_index = sent_len_list[ loop_var ]
+            classified_unicode = doc_arr[ start_index:last_index ]
 
+            #convert unicode to string
             classified_sent = [ (str(cu[0]), str(cu[1]).lower()) for cu in classified_unicode ]
             for tup in classified_sent:
                 if( not ner_config[tup[1]] == "none"):
@@ -115,4 +114,5 @@ def write_to_answer_file( file_handle, answers):
 
     while( count < 5 ):
         content += str(answers[0][0]) + "1 nil\n"
+        count += 1
     file_handle.write( content )

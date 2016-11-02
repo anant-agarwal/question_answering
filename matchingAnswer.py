@@ -9,9 +9,9 @@ from collections import defaultdict
 from nltk.tokenize import word_tokenize
 import heapq
 
-# lookUp_List = { '89' : {'when': [], 'who': [], 'where': [(0, 0, 'India'), (1, 1, 'Microsoft')]}   }
+# lookup_list = { '89' : {'when': [], 'who': [], 'where': [(0, 0, 'India'), (1, 1, 'Microsoft')]}   }
 # 
-# Corpus = [
+# corpus = [
 #                        [
 #                             "Gandhi is father of India",
 #                             "Newton made laws of motion",
@@ -28,40 +28,36 @@ import heapq
 #                    ]
 
 h = []
-def insert_in_heap(common_word_count, QId, Doc_ID, answer):
-    heapq.heappush(h, (common_word_count, QId, Doc_ID, answer))
+def insert_in_heap(common_word_count, qid, doc_id, answer):
+    heapq.heappush(h, (common_word_count, qid, doc_id, answer))
 
-def getTokenSet(sentence):
+def get_token_set(sentence):
     word_List = word_tokenize(sentence)
     return set(word_List)
 
-def match_Question_answer(question_Tokens_set, answer_Tokens_set):
-    common_word_count = len(set.intersection(question_Tokens_set, answer_Tokens_set))
+def match_question_answer(question_tokens_set, answer_tokens_set):
+    common_word_count = len(set.intersection(question_tokens_set, answer_tokens_set))
     return (common_word_count)
 
-def FindMaxMatchingAnswer(QId, QType, QText, Corpus, lookUp_List):
-    question_Tokens_set = getTokenSet(QText)
-    #tuple_List = lookUp_List.get(QId).get(QType)
-    qid = str(QId)
-    tuple_List =  lookUp_List[str(qid)][QType.lower()]
+def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list):
+    question_tokens_set = get_token_set(qtext)
+    #tuple_list = lookup_list.get(qid).get(qtype)
+    qid = str(qid)
+    tuple_list =  lookup_list[str(qid)][qtype.lower()]
     top_five_answers = []
-    for tuple in tuple_List:
-        #print(tuple)
-        Doc_ID = tuple[0]
-        Sent_ID = tuple[1]
-        answer = tuple[2]
-        #try :
-        sentence = Corpus[qid][Doc_ID][Sent_ID]
-        #except :
-            #print qid
-        answer_Tokens_set = getTokenSet(sentence)
-        common_word_count = match_Question_answer(question_Tokens_set, answer_Tokens_set)
-        heapq.heappush(h, (common_word_count, QId, Doc_ID, answer))
+    for tup in tuple_list:
+        doc_id = tup[0]
+        sent_id = tup[1]
+        answer = tup[2]
+        sentence = corpus[qid][doc_id][sent_id]
+        answer_tokens_set = get_token_set(sentence)
+        common_word_count = match_question_answer(question_tokens_set, answer_tokens_set)
+        heapq.heappush(h, (common_word_count, qid, doc_id, answer))
 
     top_five_tuples = heapq.nlargest(5, h);
     for answer_tuple in top_five_tuples:
         top_five_answers.append(answer_tuple[1:4])
     return top_five_answers
 
-# heap = FindMaxMatchingAnswer('89', "where", "where, is Gandhi?", Corpus, lookUp_List)
+# heap = find_max_matching_answer('89', "where", "where, is Gandhi?", corpus, lookup_list)
 # print(heap)
