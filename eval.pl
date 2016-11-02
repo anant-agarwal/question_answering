@@ -43,12 +43,12 @@ while ($line = <INPUT>) {
 	if ($oldq != -1) { # i.e., not very first query
 	    if ($answer_rank != 0) { # had a correct answer
 		$recip = 1 / $answer_rank;
-	        printf "Question %3d: Correct answer found at rank %d (%.2f).\n",
+	        printf "Correct %3d answer found at rank %d (%.2f).\n",
 			$oldq, $answer_rank, $recip;
 		$sum += $recip;
 	    }
 	    else { 
-	        printf "Question %3d: No correct answer found. \n", $oldq;
+	        printf "Incorrect %3d \n", $oldq;
 		$num_notfound++;
 	    }
 	}
@@ -79,12 +79,12 @@ while ($line = <INPUT>) {
 if ($qid != 0) { # i.e., submission file not empty
     if ($answer_rank != 0) { # last question had a correct answer
 	$recip = 1 / $answer_rank;
-        printf "Question %3d: Correct answer found at rank %d (%.2f).\n",
+        printf "Correct %3d answer found at rank %d (%.2f).\n",
 		$qid, $answer_rank, $recip;
 	$sum += $recip;
     }
     else { 
-        printf "Question %3d: No correct answer found. \n", $oldq;
+        printf "Incorrect %3d \n", $oldq;
 		$num_notfound++;
     }
 }
