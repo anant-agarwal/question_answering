@@ -4,7 +4,7 @@ Get the Question id,Qtype and the Question Description
 import matchingAnswer
 import lookup_gen
 
-def QuestionProcessing(path, preprocessed_data):
+def question_processing(path, preprocessed_data):
     questid =""
     qtype = ""
     line_split =""
@@ -40,7 +40,7 @@ def QuestionProcessing(path, preprocessed_data):
             if qtype.startswith('When'):
                 qtype = 'When'
 
-            answers = matchingAnswer.FindMaxMatchingAnswer(questid, qtype,line,
+            answers = matchingAnswer.find_max_matching_answer(questid, qtype,line,
                                                            preprocessed_data["corpus"],
                                                            preprocessed_data["lookup_dict"])
             #print questid
@@ -49,4 +49,4 @@ def QuestionProcessing(path, preprocessed_data):
     write_handle.close()
 
 #Sample call
-#QuestionProcessing("C:/Users/pooja/Desktop/NLP_PROJ3/question.txt")
+#question_processing("C:/Users/pooja/Desktop/NLP_PROJ3/question.txt")

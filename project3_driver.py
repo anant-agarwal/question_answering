@@ -32,6 +32,6 @@ while (not input_path_is_correct) :
 
 preprocessed_data = build_corpus.build_corpus(document_path)
 
-question_process.QuestionProcessing(path+"question_answering/", preprocessed_data)
+question_process.question_processing(path+"question_answering/", preprocessed_data)
 
 #print preprocessed_data["lookup_dict"]
