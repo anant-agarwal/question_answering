@@ -59,7 +59,13 @@ def lookup_gen( corpus_per_q ):
             classified_unicode = doc_arr[ start_index:last_index ]
 
             #convert unicode to string
-            classified_sent = [ (str(cu[0]), str(cu[1]).lower()) for cu in classified_unicode ]
+            classified_sent = []
+            for cu in classified_unicode:
+                try:
+                    classified_sent += [ (str(cu[0]), str(cu[1]).lower()) ]
+                except:
+                    print( cu[0], cu[1], "conversion to raw string failed")
+
             for tup in classified_sent:
                 if( not ner_config[tup[1]] == "none"):
                     lookup_list[ ner_config[tup[1]] ] += [(doc_id, sent_id, tup[0])]
