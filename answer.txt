@@ -173,11 +173,11 @@
 123 7 Europe
 123 7 Europe
 123 7 Cambridge
-1241 nil
-1241 nil
-1241 nil
-1241 nil
-1241 nil
+124 1 nil
+124 1 nil
+124 1 nil
+124 1 nil
+124 1 nil
 125 5 Pichot
 125 5 Picasso
 125 5 Germaine
@@ -288,11 +288,11 @@
 146 7 Robert
 146 4 Stanton
 146 4 Moore
-1471 nil
-1471 nil
-1471 nil
-1471 nil
-1471 nil
+147 1 nil
+147 1 nil
+147 1 nil
+147 1 nil
+147 1 nil
 148 6 U.S.
 148 6 Guam
 148 2 WASHINGTON
