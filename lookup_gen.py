@@ -59,11 +59,22 @@ def lookup_gen( corpus_per_q ):
 
             #convert unicode to string
             classified_sent = []
-            for cu in classified_unicode:
+            len_classified_unicode = len( classified_unicode )
+            uni_iter = 0
+            prev_tag = ""
+            while( uni_iter < len_classified_unicode ):
+                cu = classified_unicode[uni_iter]
                 try:
-                    classified_sent += [ (str(cu[0]), str(cu[1]).lower()) ]
+                    current_word = str(cu[0])
+                    current_tag = str(cu[1]).lower()
+                    if( prev_tag == current_tag):
+                        classified_sent[-1] = (classified_sent[-1][0] + " " + current_word, current_tag)
+                    else:
+                        classified_sent += [ (current_word, current_tag) ]
+                    prev_tag = current_tag
                 except:
                     print( cu[0], cu[1], "conversion to raw string failed")
+                uni_iter += 1
 
             for tup in classified_sent:
                 if( not ner_config[tup[1]] == "none"):
@@ -98,5 +109,5 @@ def lookup_gen_test():
     print( lookup_gen( corpus_per_q ) )
 
 ##sample call below
-#lookup_gen_test()
+lookup_gen_test()
 '''

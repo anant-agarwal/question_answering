@@ -56,7 +56,7 @@ def write_to_answer_file( questid, file_handle, answers):
         count += 1
 
     while( count < 5 ):
-        content += str(questid) + "1 nil\n"
+        content += str(questid) + " 1 nil\n"
         count += 1
     file_handle.write( content )
 
