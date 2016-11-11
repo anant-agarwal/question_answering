@@ -1,24 +1,36 @@
+import nltk
 from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 import heapq
 
-# lookup_list = { '89' : {'when': [], 'who': [], 'where': [(0, 0, 'India'), (1, 1, 'Microsoft')]}   }
+#lookup_list = { '89' : {'when': [], 'who': [], 'where': [(0, 0, 'India'), (1, 1, 'Microsoft')]}   }
 # 
-# corpus ={ '89': [
-#                        [
-#                             "Gandhi is father of India",
-#                             "Newton made laws of motion",
-#                        ],
-#                        [
-#                             "Apple makes Iphone",
-#                             "Hololens was made by Microsoft",
-#                             "Facebook has caputerd VR space"
-#                        ],
-#                        [
-#                             "New Macbooks are not upto the mark",
-#                             "Surface desktops are the new thing to look at"
-#                        ]
+#corpus ={ '89': [
+#                    [
+#                         "Gandhi is father of India",
+#                         "Newton made laws of motion",
+#                    ],
+#                    [
+#                         "Apple makes Iphone",
+#                         "Hololens was made by Microsoft",
+#                         "Facebook has caputerd VR space"
+#                    ],
+#                    [
+#                         "New Macbooks are not upto the mark",
+#                         "Surface desktops are the new thing to look at"
 #                    ]
-#           }
+#                ]
+#       }
+
+# Remove_stop_words should be called after tokenization
+#sentence is a list of words ["Hi", "how", "are", "you"]
+#returns a new list of words
+#move the below two line to the calling code and pass the s_words to the function
+s_words = nltk.corpus.stopwords.words('english')
+string_stop_words = [ str(x) for x in  s_words]
+def remove_stop_words( sentence, stop_words_list ):
+    sent = [ w for w in sentence if w.lower() not in stop_words_list ]
+    return sent
 
 def get_token_set(sentence):
     word_List = word_tokenize(sentence)
@@ -49,6 +61,10 @@ def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list):
     return top_five_answers
 
 ''' Sample run for the function in this file''
- heap = find_max_matching_answer('89', "where", "where, is Gandhi?", corpus, lookup_list)
- print(heap)
+heap = find_max_matching_answer('89', "where", "where, is Gandhi?", corpus, lookup_list)
+print(heap)
+#'''
+''' sample remove stop words ''
+qw = remove_stop_words( ["me", "asd", "qw"], s_words)
+print(qw)
 '''
