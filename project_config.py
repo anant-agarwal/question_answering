@@ -19,3 +19,10 @@ debug_mode = 0
 # While testing, how many questions we want to process. Setting this to 0 will
 # process all the questions even in debug mode
 question_boundary = 90
+
+# how many documents should be processed for every question.
+max_rank_check = 100
+
+lowercase_mode_on = True
+
+context_span = 1

@@ -31,8 +31,8 @@ def question_processing(path, preprocessed_data):
         if((line_split[0] != "<num>")and (line_split[0] !="<desc>") and
            (line_split[0] !="<top>") and (line_split[0]!="</top>")):
             qtype=line_split[0]
-            print(questid,qtype,line)
-            print "finding answers for questid: ", questid
+            #print(questid,qtype,line)
+            #print "finding answers for questid: ", questid
 
             #To handle cases like where's
             if qtype.startswith('Where'):
