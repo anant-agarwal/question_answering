@@ -33,7 +33,7 @@ import project_config
 #returns a new list of words
 #move the below two line to the calling code and pass the s_words to the function
 s_words = nltk.corpus.stopwords.words('english')
-string_stop_words = [ str(x) for x in  s_words]
+#string_stop_words = [ str(x) for x in  s_words]
 
 def remove_stop_words( sentence, stop_words_list ):
     sent = [ w for w in sentence if w.lower() not in stop_words_list ]
@@ -79,6 +79,7 @@ def context_based_sentences( corpus, qid, doc_id, sent_id, context_span):
     
 def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list, lookup_score):
     h = []
+    h2 = []
     #question_tokens_set = get_token_set(qtext)
     #qtext_stemmed = stem_sentence(qtext)
     #question_tokens_set = remove_stop_words(qtext_stemmed, s_words)
@@ -114,21 +115,33 @@ def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list, lookup_scor
         common_word_count = match_question_answer(question_tokens_set, answer_tokens_set)
         match_count_weight = calculate_weight(common_word_count,lookup_score[qid][doc_id])
         heapq.heappush(h, (match_count_weight, qid, doc_id, answer))
+        heapq.heappush(h2, (common_word_count, qid, doc_id, answer))
 
     top_twenty_tuples = heapq.nlargest(20, h);
+    top_twenty_tuples_unw = heapq.nlargest(20,h2)
+    top_five_answers_unw = []
+
     answer_list = []
+
     for answer_tuple in top_twenty_tuples:
         answer_token = answer_tuple[3]
         if answer_token not in answer_list:
             top_five_answers.append(answer_tuple[1:4])
             answer_list.append(answer_token)
-    return top_five_answers[0:5]
+
+    for answer_tuple in top_twenty_tuples_unw:
+        answer_token = answer_tuple[3]
+        if answer_token not in answer_list:
+            top_five_answers_unw.append(answer_tuple[1:4])
+            answer_list.append(answer_token)
+
+    return top_five_answers[0:2] + top_five_answers_unw[0:3]
 
 ''' Sample run for the function in this file''
 heap = find_max_matching_answer('89', "where", "where, is Gandhi?", corpus, lookup_list)
 print(heap)
 #'''
-''' sample remove stop words : tokenized sentnece as input''
+''' sample remove stop words : tokenized sentnece as input'''
 qw = remove_stop_words( ["me", "asd", "qw"], s_words)
 print(qw)
-'''
+#'''
