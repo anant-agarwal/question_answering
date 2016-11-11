@@ -1,5 +1,6 @@
 from nltk.tokenize import word_tokenize
 import heapq
+import project_config
 
 # lookup_list = { '89' : {'when': [], 'who': [], 'where': [(0, 0, 'India'), (1, 1, 'Microsoft')]}   }
 # 
@@ -20,6 +21,9 @@ import heapq
 #                    ]
 #           }
 
+def calculate_weight(match_count, doc_score) :
+    return (doc_score * project_config.doc_score_weight + match_count)
+
 def get_token_set(sentence):
     word_List = word_tokenize(sentence)
     return set(word_List)
@@ -28,7 +32,7 @@ def match_question_answer(question_tokens_set, answer_tokens_set):
     common_word_count = len(set.intersection(question_tokens_set, answer_tokens_set))
     return (common_word_count)
 
-def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list):
+def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list, lookup_score):
     h = []
     question_tokens_set = get_token_set(qtext)
     qid = str(qid)
@@ -41,7 +45,8 @@ def find_max_matching_answer(qid, qtype, qtext, corpus, lookup_list):
         sentence = corpus[qid][doc_id][sent_id]
         answer_tokens_set = get_token_set(sentence)
         common_word_count = match_question_answer(question_tokens_set, answer_tokens_set)
-        heapq.heappush(h, (common_word_count, qid, doc_id, answer))
+        match_count_weight = calculate_weight(common_word_count,lookup_score[qid][doc_id])
+        heapq.heappush(h, (match_count_weight, qid, doc_id, answer))
 
     top_five_tuples = heapq.nlargest(5, h);
     for answer_tuple in top_five_tuples:

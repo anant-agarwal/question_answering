@@ -8,28 +8,27 @@ import build_corpus
 import question_process
 
 #
-# User should enter the directory path having 'train' folder.
+# Folder path entered below should contain doc_dev.7z and question.txt files
+# doc_dev.7z should be unzipped and copied to the folder doc_dev in the same path
 #
-input_path_is_correct = 1;
-path = "/Users/Deekshith/Desktop/Cornell/2_NLP/assignment_3/"
 
-#
-# folders : 89 to 320
-# within each folder : 1 to 100
-# 103 for test -- first when question id.
-#
-document_path = path+"documents/"
+input_path_is_correct = 0;
 
 while (not input_path_is_correct) :
-    path = input("\nInput path to train folder:")
-    final_path = path + "train/"
-    print("\nWill start reading at:", final_path, "\n");
+    #
+    # Enter the path where doc_dev is present.
+    #
+    path = input("\nInput path to the parent folder of doc_dev: ")
+    document_path = path+"doc_dev/"
+    print "\nWill start reading at:", document_path, "\n";
     confirm = input("If that's right enter yes else no: ");
     if (confirm.lower() =="yes") :
         input_path_is_correct = 1
 
+#
+# Unzipped content is stored in documents folder
+#
+
 preprocessed_data = build_corpus.build_corpus(document_path)
 
-question_process.question_processing(path+"question_answering/", preprocessed_data)
-
-#print preprocessed_data["lookup_dict"]
+question_process.question_processing(path, preprocessed_data)

@@ -2,6 +2,7 @@
 Get the Question id,Qtype and the Question Description
 """
 import matchingAnswer
+import project_config
 
 def question_processing(path, preprocessed_data):
     questid =""
@@ -43,8 +44,13 @@ def question_processing(path, preprocessed_data):
 
             answers = matchingAnswer.find_max_matching_answer(questid, qtype,line,
                                                               preprocessed_data["corpus"],
-                                                              preprocessed_data["lookup_dict"])
+                                                              preprocessed_data["lookup_dict"],
+                                                              preprocessed_data["lookup_score"])
             write_to_answer_file(questid, write_handle, answers)
+            # debug code
+            if (project_config.debug_mode and
+                questid == project_config.question_boundary) :
+                break;
             
     write_handle.close()
 
@@ -56,7 +62,7 @@ def write_to_answer_file( questid, file_handle, answers):
         count += 1
 
     while( count < 5 ):
-        content += str(questid) + "1 nil\n"
+        content += str(questid) + " 1 nil\n"
         count += 1
     file_handle.write( content )
 

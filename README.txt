@@ -10,6 +10,16 @@ How to run the code :
 
 Console Output :
 ================
+Input path to the parent folder of doc_dev: "/Users/Deekshith/Desktop/Cornell/2_NLP/assignment_3/question_answering/"
+
+Will start reading at: /Users/Deekshith/Desktop/Cornell/2_NLP/assignment_3/question_answering/doc_dev/
+
+If that's right enter yes else no: "yes"
+processed folder :  89
+processed folder :  90
+processed folder :  91
+...
+...
 
 Code Organization :
 ===================

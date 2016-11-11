@@ -28,10 +28,21 @@ def read_xml_file( path_to_file ):
 
 def read_file_text(path_to_file):
     read_handle = open( path_to_file,"r")
-    read_handle.readline()
+    score = read_handle.readline()
+    while not score.split():
+        score = read_handle.readline()
+
+    # If we want to remove everything till <TEXT> in anwer doc
+    # uncomment this.
+    '''
+    tags = read_handle.readline()
+    while "<TEXT>" not in tags :
+        tags = read_handle.readline()
+    '''
+
     text = read_handle.read()
     text = re.sub('<[^>]*>', '', text)
-    return text
+    return (score,text)
 
 def list_all_files( path ):
     all_files = os.listdir(path);
