@@ -6,6 +6,7 @@ Created on Mon Oct 31 20:44:31 2016
 """
 import build_corpus
 import question_process
+import project_config
 
 #
 # Folder path entered below should contain doc_dev.7z and question.txt files
@@ -29,6 +30,24 @@ while (not input_path_is_correct) :
 # Unzipped content is stored in documents folder
 #
 
-preprocessed_data = build_corpus.build_corpus(document_path)
+#preprocessed_data = build_corpus.build_corpus(document_path)
+while True:
+    input_value = input("\nEnter the doc score : ")
+    project_config.doc_score_weight = float(input_value)
 
-question_process.question_processing(path, preprocessed_data)
+    input_value = input("\nEnter the max rank check folder count : ")
+    project_config.max_rank_check = int(input_value)
+
+    input_value = input("\n Lower case mode on? (1/0) : ")
+    project_config.lowercase_mode_on = int(input_value)
+
+    input_value = input("\nEnter context span value (1-n): ")
+    project_config.context_span = int(input_value)
+
+    question_process.question_processing(path, preprocessed_data)
+
+    print "max_rank_check: ", project_config.max_rank_check
+    print "doc score weight: ", project_config.doc_score_weight
+    print "lower case mode: ", project_config.lowercase_mode_on
+    print "context span: ", project_config.context_span
+    print "stemming: 1"

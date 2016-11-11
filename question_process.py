@@ -58,7 +58,8 @@ def write_to_answer_file( questid, file_handle, answers):
     content = ""
     count = 0;
     for ans in answers:
-        content += str(questid) +" "+ str(ans[1]) + " " + ans[2] + "\n"
+        actual_ans = ans[2][0:49]
+        content += str(questid) +" "+ str(ans[1]) + " " + actual_ans + "\n"
         count += 1
 
     while( count < 5 ):

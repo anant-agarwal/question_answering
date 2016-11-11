@@ -23,6 +23,6 @@ question_boundary = 90
 # how many documents should be processed for every question.
 max_rank_check = 100
 
-lowercase_mode_on = True
+lowercase_mode_on = 1
 
 context_span = 1
